@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:xianyu/home/HomeScanPage.dart';
 
 class HomeAppBar {
   BuildContext context;
@@ -7,6 +6,7 @@ class HomeAppBar {
   // 获取AppBar
    AppBar getHomeAppBar(){
     return AppBar(
+        
         title: Container(
           margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
             child: TextField(
@@ -40,6 +40,8 @@ class HomeAppBar {
             },
           )
         ],
+        // 导航条底部阴影
+        elevation: 0,
       );
   }
 

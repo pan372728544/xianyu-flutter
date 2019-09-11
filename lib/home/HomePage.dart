@@ -23,7 +23,19 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Color.fromRGBO(237, 237, 237, 1),
       body: ListView(
         children: <Widget>[
-          HomeCategory()
+          HomeCategory(),
+          Container(
+            padding: EdgeInsets.only(top: 10),
+            child: Text(
+            "首页数据二楼",
+            style: TextStyle(
+              fontSize: 100,
+              backgroundColor: Colors.blue
+          
+            ),
+            ),
+          )
+
         ],
       )
 
