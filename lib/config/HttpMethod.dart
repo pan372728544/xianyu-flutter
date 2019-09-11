@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'dart:async';
-import 'dart:io';
 import 'ServiceUrl.dart';
 
 
@@ -9,6 +8,9 @@ Future getHomeCategoryData() async {
   return request(homeCategoryUrl);
 }
 
+Future getHomeCategoryStarData() async {
+  return request(homeCategoryStarUrl);
+}
 
 // 公共网络请求
 Future request(url) async {

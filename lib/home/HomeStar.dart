@@ -17,14 +17,15 @@ class _HomeStarState extends State<HomeStar> {
     return FutureBuilder(
 
       // 请求分类数据
-      future: getHomeCategoryData(),
+      future: getHomeCategoryStarData(),
 
       // 成功之后会指向 下面方法
       builder: (context,snapshot){
 
         // 如果有数据会返回Container页面
         if (snapshot.hasData){
-          List<Map> categoryList =  (snapshot.data as List).cast();
+         Map categoryList =  (snapshot.data).cast();
+          print("aaaaaa   $categoryList");
           return  Stack(
               children: <Widget>[
                
