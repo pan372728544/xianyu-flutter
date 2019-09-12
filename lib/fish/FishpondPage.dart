@@ -13,7 +13,30 @@ class _FishpondPageState extends State<FishpondPage> {
       appBar: AppBar(
         title: Text("鱼塘"),
       ),
-      body: Text("asjdlfjaldsjfla"),
+      body: Row(
+        children: <Widget>[
+          Container(
+            height: 100,
+           child: Column(
+            children: <Widget>[
+              Text("asdfasdfasdf"),
+              Text("sssssss")
+            ],
+
+          ),
+          ),
+          
+          Container(
+            height: 100,
+            child: Text("加上了对方"),
+          )
+
+
+
+        ],
+
+
+      )
 
     );
   }
