@@ -10,10 +10,10 @@ import '../message/MessagePage.dart';
 
 import '../me/MePage.dart';
 
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 /// 底部tabbar
 class Tabs extends StatefulWidget {
   Tabs({Key key}) : super(key: key);
-
   _TabsState createState() => _TabsState();
 }
 
@@ -35,6 +35,10 @@ class _TabsState extends State<Tabs> {
 
   @override
   Widget build(BuildContext context) {
+
+  // 设置为2倍图 iphone6
+  ScreenUtil.instance = ScreenUtil(width: 750,height: 1334)..init(context);
+
     return Scaffold(
 
       floatingActionButton: Container(

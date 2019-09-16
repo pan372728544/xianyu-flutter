@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'HomeNavigationBar.dart';
 
 import 'HomeCategory.dart';
-
-import '../config/ServiceUrl.dart';
-import '../config/HttpMethod.dart';
+import 'HomeSale.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -22,19 +20,10 @@ class _HomePageState extends State<HomePage> {
       appBar: HomeAppBar(context).getHomeAppBar(),
       backgroundColor: Color.fromRGBO(237, 237, 237, 1),
       body: ListView(
+        
         children: <Widget>[
           HomeCategory(),
-          Container(
-            padding: EdgeInsets.only(top: 10),
-            child: Text(
-            "首页数据二楼",
-            style: TextStyle(
-              fontSize: 100,
-              backgroundColor: Colors.blue
-          
-            ),
-            ),
-          )
+          HomeSale(),
 
         ],
       )

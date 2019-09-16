@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../config/HttpMethod.dart';
 /// 明星在闲鱼
 
@@ -24,40 +25,39 @@ class _HomeStarState extends State<HomeStar> {
 
         // 如果有数据会返回Container页面
         if (snapshot.hasData){
+          // 总的数据
          Map starData =  (snapshot.data).cast();
-         print('aaaaaaaaa      $starData');
+         // 顶部数据
          List topList = starData['array'];
-          print('bbbbbb      $topList');
-          Map bottomData = starData['star'];
-          print('cccccc      $bottomData');
+         // 底部数据
+         Map bottomData = starData['star'];
           return  Stack(
               children: <Widget>[
-               
+               // 白色背景容器
                Container(
-                  // 设置高度
+                // 设置高度
                 height: 200,
                 // 装饰
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20), color: Colors.white),
                ),
+              // 顶部 ===========================
                Container(
-                 height: 150,
-                 margin: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                   color: Colors.white),
+                 margin: EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 35),
                  child: GridView.count(
                    crossAxisCount: 2,
                     physics: NeverScrollableScrollPhysics(),
-                    childAspectRatio: 2.5,
+                    childAspectRatio: 3.1,
                    children: topList.map((item){
                      return _gridViewItem(context,item);
                    }).toList(),
                  ),
                 ),
+
+                // 顶部================================
                 Container(
-                  height: 50,
-                  margin: EdgeInsets.only(top: 150),
-                 
+                  // 底部高度
+                  margin: EdgeInsets.only(top: 130),
                   child: _starViewItem(context,bottomData),
                 ),
                
@@ -67,8 +67,6 @@ class _HomeStarState extends State<HomeStar> {
         } else {
           // 没有数据返回一个占位的视图
          return Container(
-                // 设置高度
-                height: 200,
                 // 间距
                 margin: EdgeInsets.all(10),
                 // 装饰
@@ -114,7 +112,6 @@ class _HomeStarState extends State<HomeStar> {
 
           Container(
             padding: EdgeInsets.all(5),
-            
             child:  Column(
               // 对齐方式 左对齐
             crossAxisAlignment: CrossAxisAlignment.start,

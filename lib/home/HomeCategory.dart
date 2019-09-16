@@ -1,13 +1,7 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'dart:io';
-import 'dart:async';
-// http 请求
-import 'package:dio/dio.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 // 服务地址配置
-import '../config/ServiceUrl.dart';
 import '../config/HttpMethod.dart';
 
 import 'HomeStar.dart';
@@ -31,60 +25,55 @@ class _HomeCategoryState extends State<HomeCategory> {
         if (snapshot.hasData) {
           List<Map> categoryList = (snapshot.data as List).cast();
           return Container(
-            height: 400,
+            height: 340,
             decoration: BoxDecoration(
               color: Color.fromRGBO(237, 237, 237, 1),
             ),
+
             child: Stack(
               children: <Widget>[
+
                 Container(
-                  height: 255,
+                  // 主题背景颜色
+                  height: 220,
                    decoration: BoxDecoration(
                       color: Colors.yellow,
                       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
                     ),
                 ),
-
-                Positioned(
-                  child: Container(
-                  // 设置高度
-                  height: 180,
-                  // 父视图间距
-                  margin: EdgeInsets.all(10),
+                  // ====================================分类视图顶部
+                 Container( 
+                  // 父视图间距   
+                  margin: EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 180),
                   // 装饰
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.white),
-                  child: Stack(
-                    children: <Widget>[
-                      GridView.count(
-                          physics: NeverScrollableScrollPhysics(),
-                          crossAxisCount: 5,
-                          crossAxisSpacing: 0,
-                          mainAxisSpacing: 5,
-                          padding: EdgeInsets.only(top: 10),
-                          children: categoryList.map((item) {
-                            return _gridViewItem(context, item);
-                          }).toList()),
-                    ],
-                  ),
-                )
-                ),
-                Positioned(
+                  child: GridView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: categoryList.length,
+                    padding: EdgeInsets.only(top: 5),
+                    itemBuilder: (context,index){
+                        return _gridViewItem(context, categoryList[index]);
 
-                 child: Container(
-                   
-                    height: 210,
-                    margin: EdgeInsets.only(top:200,left: 10,right: 10),
+                    },
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 5,
+                      childAspectRatio: 1,
+                      crossAxisSpacing: 10
+                    )
+                  )
+
+                ),
+                  // 明星容器 ====================================分类视图底部
+                 Container(
+                    margin: EdgeInsets.only(top: 170,left: 10,right: 10,bottom: 0),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.white
                     ),
                     child: HomeStar(),  
-                  )
                 ),
-
-               
               ],
             ),
           );
@@ -92,7 +81,7 @@ class _HomeCategoryState extends State<HomeCategory> {
           // 没有数据返回一个占位的视图
           return Container(
               // 设置高度
-              height: 200,
+              height: ScreenUtil().setHeight(200),
               // 间距
               margin: EdgeInsets.all(10),
               // 装饰
@@ -115,26 +104,35 @@ class _HomeCategoryState extends State<HomeCategory> {
 
   // 单个分类视图
   Widget _gridViewItem(BuildContext context, item) {
-    return InkWell(
+    return Container(
+      // color: item["title"] == '数码' ? Colors.orange : Colors.white,
+      child: InkWell(
       onTap: () {
         /// 点击对应的item
         print(item['title']);
       },
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          // 图片数据
-          Image.network(
-            item['imageUrl'],
-            width: 60,
-            fit: BoxFit.fill,
+          Expanded(
+            flex: 3,
+            // 图片数据
+           child: Image.network(
+              item['imageUrl'],
+              fit: BoxFit.fill,
+            )
           ),
-          // 标题
-          Text(
-            item['title'],
-            style: TextStyle(fontSize: 12.0, color: Colors.black),
+          Expanded(
+            flex: 1,
+            child: Text(
+                item['title'],
+                style: TextStyle(fontSize: 12.0, color: Colors.black),
+              ),
           )
         ],
       ),
+    ),
+
     );
   }
 }

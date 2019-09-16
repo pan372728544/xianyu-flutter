@@ -13,7 +13,68 @@ class _MessagePageState extends State<MessagePage> {
       appBar: AppBar(
         title: Text("消息"),
       ),
-      body: Text("asjdlfjaldsjfla"),
+      body: Container(
+        child: GridView.count(
+          crossAxisCount: 5,
+          childAspectRatio: 1.4,
+          children: <Widget>[
+            Container(
+              color: Colors.red,
+              child:  Column(
+              children: <Widget>[
+                Expanded(
+                  flex: 3,
+                   child: Icon(Icons.save_alt),
+                ),
+                Expanded(
+                  flex: 1,
+                  child:  Text("ajsldjflasj"),
+                )
+                
+              ],
+            ),
+            )
+           ,
+            Container(
+              color: Colors.blue,
+              child: Column(
+              children: <Widget>[
+                 Icon(Icons.save_alt),
+                 Text("ajsldjflasj")
+              ],
+            ),
+            ),
+            Column(
+              children: <Widget>[
+                 Icon(Icons.save_alt),
+                 Text("ajsldjflasj")
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                 Icon(Icons.save_alt),
+                 Text("ajsldjflasj")
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                 Icon(Icons.save_alt),
+                 Text("ajsldjflasj")
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                 Icon(Icons.save_alt),
+                 Text("ajsldjflasj")
+              ],
+            ),
+
+          ],
+
+        ),
+
+
+      ),
 
     );
   }
