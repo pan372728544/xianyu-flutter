@@ -44,13 +44,14 @@ class _HomeStarState extends State<HomeStar> {
               // 顶部 ===========================
                Container(
                  margin: EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 35),
-                 child: GridView.count(
-                   crossAxisCount: 2,
+                 child: GridView.extent(
+                    maxCrossAxisExtent: 280,
                     physics: NeverScrollableScrollPhysics(),
                     childAspectRatio: 3.1,
                    children: topList.map((item){
                      return _gridViewItem(context,item);
                    }).toList(),
+                   
                  ),
                 ),
 

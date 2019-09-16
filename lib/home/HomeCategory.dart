@@ -57,11 +57,10 @@ class _HomeCategoryState extends State<HomeCategory> {
                         return _gridViewItem(context, categoryList[index]);
 
                     },
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 5,
-                      childAspectRatio: 1,
+                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 70,
                       crossAxisSpacing: 10
-                    )
+                    ),
                   )
 
                 ),

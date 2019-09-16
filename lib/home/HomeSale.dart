@@ -27,7 +27,11 @@ class _HomeSaleState extends State<HomeSale> {
                 topWidget(),
                 middleWidget(),
                 MyButton("57类上门回收"),
-                bottomWidget()
+               Align(
+                  alignment: Alignment.bottomRight,
+                  child: bottomWidget(),
+               )
+                
 
                ],
 
@@ -65,8 +69,8 @@ Widget middleWidget() {
     Sale("信用回收", "先收钱 再寄货", "https://gw.alicdn.com/bao/uploaded/i4/3017649786/O1CN010uMdZv2MA2QtBoYFI_!!0-item_pic.jpg",Colors.blue,'N','N'),
 
   ];
-  return GridView.count(
-    crossAxisCount: 2,
+  return GridView.extent(
+    maxCrossAxisExtent: 280,
     childAspectRatio: 2.5,
     physics: NeverScrollableScrollPhysics(),
     padding: EdgeInsets.only(top: 30),
@@ -229,9 +233,9 @@ class MyButton extends StatelessWidget {
     ];
 
     return Container(
-      height: 100,
-      width: 240,
-      margin: EdgeInsets.fromLTRB(160, 110, 0, 0),
+      height: 90,
+      width: 210,
+      // color: Colors.orange,
       child: Row(
 
         children: list.map((item){
@@ -248,7 +252,7 @@ Widget bottomItem(item) {
 
     return Container(
       width: 70,
-      height: 110,
+      height: 90,
       child: Column(
         children: <Widget>[
           Image.network(item.imageUrl),
