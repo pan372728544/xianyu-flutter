@@ -33,26 +33,15 @@ class _HomeStarState extends State<HomeStar> {
          Map bottomData = starData['star'];
           return  Stack(
               children: <Widget>[
-               // 白色背景容器
-              //  AspectRatio(
-              //    aspectRatio: 375/10,
-              //    child: Container(
-              //     // 设置高度
-              //     // height: ScreenUtil().setHeight(200),
-              //     // 装饰
-              //     decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.circular(20), color: Colors.white),
-              //   ),
-              //  ),
               // 顶部 ===========================
                 AspectRatio(
-                  aspectRatio: 375/130,
+                  aspectRatio: 375/160,
                   child:   Container(
                     padding: EdgeInsets.all(10),
                     child: GridView.count(
                         crossAxisCount: 2,
                         physics: NeverScrollableScrollPhysics(),
-                        childAspectRatio: (ScreenUtil.screenWidthDp/2)/((ScreenUtil.screenWidthDp*130/375)/2),
+                        childAspectRatio: (ScreenUtil.screenWidthDp/2)/((ScreenUtil.screenWidthDp*160/375-20)/2),
                       children: topList.map((item){
                         return _gridViewItem(context,item);
                       }).toList(),

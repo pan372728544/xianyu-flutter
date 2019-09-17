@@ -27,11 +27,11 @@ class _HomeCategoryState extends State<HomeCategory> {
         if (snapshot.hasData) {
           List<Map> categoryList = (snapshot.data as List).cast();
           return AspectRatio(
-            aspectRatio: 375/300,
+            aspectRatio: 375/320,
             child: Container(
             height: ScreenUtil.getInstance().setHeight(270),
             decoration: BoxDecoration(
-              color: Color.fromRGBO(37, 237, 237, 1),
+              color: Color.fromRGBO(237, 237, 237, 1),
             ),
 
             child: Stack(
@@ -40,7 +40,6 @@ class _HomeCategoryState extends State<HomeCategory> {
                   aspectRatio: 375/180,
                   child: Container(
                   // 主题背景颜色
-                  // height:  ScreenUtil.getInstance().setHeight(180),
                    decoration: BoxDecoration(
                       color: Colors.yellow,
                       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
@@ -53,7 +52,6 @@ class _HomeCategoryState extends State<HomeCategory> {
                   aspectRatio: 375/140,
                   child:   Container( 
                   // 父视图间距   
-                  // height: ScreenUtil().setHeight(120),
                   margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
                   // 装饰
                   decoration: BoxDecoration(
@@ -79,7 +77,7 @@ class _HomeCategoryState extends State<HomeCategory> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child:  AspectRatio(
-                    aspectRatio: 375/160,
+                    aspectRatio: 375/180,
                     child: Container(
                         margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
                           decoration: BoxDecoration(
