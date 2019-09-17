@@ -37,7 +37,7 @@ class _TabsState extends State<Tabs> {
   Widget build(BuildContext context) {
 
   // 设置为2倍图 iphone6
-  ScreenUtil.instance = ScreenUtil(width: 750,height: 1334)..init(context);
+  ScreenUtil.instance = ScreenUtil(width: 375,height: 667)..init(context);
 
     return Scaffold(
 

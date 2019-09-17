@@ -14,6 +14,8 @@ class HomeCategory extends StatefulWidget {
 class _HomeCategoryState extends State<HomeCategory> {
   @override
   Widget build(BuildContext context) {
+
+  print("平面镜看到33===00000；====== ${ScreenUtil.screenWidthDp}");
     // 白色背景容器
     return FutureBuilder(
       // 请求分类数据
@@ -24,27 +26,35 @@ class _HomeCategoryState extends State<HomeCategory> {
         // 如果有数据会返回Container页面
         if (snapshot.hasData) {
           List<Map> categoryList = (snapshot.data as List).cast();
-          return Container(
-            height: 340,
+          return AspectRatio(
+            aspectRatio: 375/300,
+            child: Container(
+            height: ScreenUtil.getInstance().setHeight(270),
             decoration: BoxDecoration(
-              color: Color.fromRGBO(237, 237, 237, 1),
+              color: Color.fromRGBO(37, 237, 237, 1),
             ),
 
             child: Stack(
               children: <Widget>[
-
-                Container(
+                AspectRatio(
+                  aspectRatio: 375/180,
+                  child: Container(
                   // 主题背景颜色
-                  height: 220,
+                  // height:  ScreenUtil.getInstance().setHeight(180),
                    decoration: BoxDecoration(
                       color: Colors.yellow,
                       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
                     ),
                 ),
+                ),
+
                   // ====================================分类视图顶部
-                 Container( 
+                AspectRatio(
+                  aspectRatio: 375/140,
+                  child:   Container( 
                   // 父视图间距   
-                  margin: EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 180),
+                  // height: ScreenUtil().setHeight(120),
+                  margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
                   // 装饰
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -52,29 +62,37 @@ class _HomeCategoryState extends State<HomeCategory> {
                   child: GridView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: categoryList.length,
-                    padding: EdgeInsets.only(top: 5),
+                    padding: EdgeInsets.only(top: 10),
                     itemBuilder: (context,index){
                         return _gridViewItem(context, categoryList[index]);
 
                     },
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 70,
-                      crossAxisSpacing: 10
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 5,
+                      childAspectRatio: ScreenUtil.screenWidthDp/5/(((ScreenUtil.screenWidthDp)*140/375 -20)/2),
                     ),
                   )
 
                 ),
-                  // 明星容器 ====================================分类视图底部
-                 Container(
-                    margin: EdgeInsets.only(top: 170,left: 10,right: 10,bottom: 0),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white
-                    ),
-                    child: HomeStar(),  
                 ),
+                  // 明星容器 ====================================分类视图底部
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child:  AspectRatio(
+                    aspectRatio: 375/160,
+                    child: Container(
+                        margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white
+                          ),
+                          child: HomeStar(),  
+                    ),
+                  )
+                )
               ],
             ),
+          ),
           );
         } else {
           // 没有数据返回一个占位的视图

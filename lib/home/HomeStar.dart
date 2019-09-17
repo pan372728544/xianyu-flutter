@@ -34,34 +34,43 @@ class _HomeStarState extends State<HomeStar> {
           return  Stack(
               children: <Widget>[
                // 白色背景容器
-               Container(
-                // 设置高度
-                height: 200,
-                // 装饰
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20), color: Colors.white),
-               ),
+              //  AspectRatio(
+              //    aspectRatio: 375/10,
+              //    child: Container(
+              //     // 设置高度
+              //     // height: ScreenUtil().setHeight(200),
+              //     // 装饰
+              //     decoration: BoxDecoration(
+              //         borderRadius: BorderRadius.circular(20), color: Colors.white),
+              //   ),
+              //  ),
               // 顶部 ===========================
-               Container(
-                 margin: EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 35),
-                 child: GridView.extent(
-                    maxCrossAxisExtent: 280,
-                    physics: NeverScrollableScrollPhysics(),
-                    childAspectRatio: 3.1,
-                   children: topList.map((item){
-                     return _gridViewItem(context,item);
-                   }).toList(),
-                   
-                 ),
+                AspectRatio(
+                  aspectRatio: 375/130,
+                  child:   Container(
+                    padding: EdgeInsets.all(10),
+                    child: GridView.count(
+                        crossAxisCount: 2,
+                        physics: NeverScrollableScrollPhysics(),
+                        childAspectRatio: (ScreenUtil.screenWidthDp/2)/((ScreenUtil.screenWidthDp*130/375)/2),
+                      children: topList.map((item){
+                        return _gridViewItem(context,item);
+                      }).toList(),
+                      
+                    ),
+                    ),
                 ),
 
-                // 顶部================================
-                Container(
-                  // 底部高度
-                  margin: EdgeInsets.only(top: 130),
-                  child: _starViewItem(context,bottomData),
-                ),
-               
+                // 底部================================
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child:  AspectRatio(
+                    aspectRatio: 375/30,
+                    child: Container(
+                    child: _starViewItem(context,bottomData),
+                  ),
+                  ),
+                )
               ],
   
           );
@@ -112,7 +121,7 @@ class _HomeStarState extends State<HomeStar> {
         children: <Widget>[
 
           Container(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.fromLTRB(5, 5, 0, 5),
             child:  Column(
               // 对齐方式 左对齐
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,7 +147,7 @@ class _HomeStarState extends State<HomeStar> {
                         child: Text(
                         item["key"],
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 10,
                           color: Colors.white,
                           fontWeight: FontWeight.bold
                         ),
@@ -159,8 +168,8 @@ class _HomeStarState extends State<HomeStar> {
             padding: EdgeInsets.only(right: 10),
             child:  Image.network(
               item['imageUrl'],
-              width: 60,
-              fit: BoxFit.fill,
+              width: ScreenUtil().setHeight(50),
+              fit: BoxFit.cover,
             ),
           )
          

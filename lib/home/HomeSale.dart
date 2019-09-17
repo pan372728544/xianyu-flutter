@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeSale extends StatefulWidget {
   HomeSale({Key key}) : super(key: key);
@@ -13,8 +14,9 @@ class _HomeSaleState extends State<HomeSale> {
   
        children: <Widget>[
          // 白色背景
-         Container(
-           height: 220,
+         AspectRatio(
+           aspectRatio: 375/200,
+           child: Container(
            margin: EdgeInsets.all(10),
            padding: EdgeInsets.all(10),
            decoration: BoxDecoration(
@@ -26,20 +28,20 @@ class _HomeSaleState extends State<HomeSale> {
                children: <Widget>[
                 topWidget(),
                 middleWidget(),
-                MyButton("57类上门回收"),
-               Align(
-                  alignment: Alignment.bottomRight,
-                  child: bottomWidget(),
-               )
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: MyButton("57类上门回收"),
+                ),
                 
-
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: bottomWidget()
+               )
                ],
-
-
-
              ),
 
            ),
+         ),
          )
 
 
@@ -69,15 +71,22 @@ Widget middleWidget() {
     Sale("信用回收", "先收钱 再寄货", "https://gw.alicdn.com/bao/uploaded/i4/3017649786/O1CN010uMdZv2MA2QtBoYFI_!!0-item_pic.jpg",Colors.blue,'N','N'),
 
   ];
-  return GridView.extent(
-    maxCrossAxisExtent: 280,
-    childAspectRatio: 2.5,
+  return Align(
+    alignment: Alignment.center,
+    child: AspectRatio(
+    aspectRatio: 375/130,
+    child: GridView.count(
+    // maxCrossAxisExtent: 280,
+    crossAxisCount: 2,
+    childAspectRatio: (ScreenUtil.screenWidthDp/2)/((ScreenUtil.screenWidthDp*130/375)/2),
     physics: NeverScrollableScrollPhysics(),
-    padding: EdgeInsets.only(top: 30),
+    // padding: EdgeInsets.only(top: 30),
     children: list.map((item){
       return _gridViewItem(item);
-    }).toList()
+    }).toList(),
+  )
  
+  ),
   );
 
 }
@@ -192,7 +201,7 @@ class MyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 140,
-      margin: EdgeInsets.only(top: 170),
+      // margin: EdgeInsets.only(top: 170),
       padding: EdgeInsets.fromLTRB(10, 3, 0, 3),
       decoration: BoxDecoration(
         color: Colors.red,
@@ -232,17 +241,16 @@ class MyButton extends StatelessWidget {
 
     ];
 
-    return Container(
-      height: 90,
-      width: 210,
-      // color: Colors.orange,
+    return  AspectRatio(
+      aspectRatio: 375/90,
+      child: Container(
       child: Row(
-
+        mainAxisAlignment: MainAxisAlignment.end,
         children: list.map((item){
           return  bottomItem(item);
         }).toList()
-
       ),
+    ),
     );
 }
 
@@ -250,10 +258,12 @@ class MyButton extends StatelessWidget {
 
 Widget bottomItem(item) {
 
-    return Container(
-      width: 70,
-      height: 90,
+    return AspectRatio(
+      aspectRatio: 7/9,
+      child: Container(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Image.network(item.imageUrl),
           Text(item.title,style: TextStyle(fontSize: 12),)
@@ -261,5 +271,6 @@ Widget bottomItem(item) {
         ],
 
       ),
+    ),
     );
 }
