@@ -27,6 +27,7 @@ dependencies:
   dio: ^2.1.16 
   # 屏幕适配
   flutter_screenutil: ^0.6.0
+  provide: ^1.0.2
 
 dev_dependencies:
   flutter_test:

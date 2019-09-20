@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provide/provide.dart';
 import 'tabbar/Tabs.dart';
 import 'router/Routes.dart';
+import 'home/fourthfloor/CommendProvider.dart';
 
-void main() => runApp(MyApp());
+void main() {
+
+  final provideers = Providers()
+      ..provide(Provider.function((context)=> CommendProvider(0)));
+      runApp(
+        ProviderNode(
+          providers: provideers,
+          child: MyApp(),
+        )
+      );
+
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

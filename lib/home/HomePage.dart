@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import './appbar/HomeTopAppBar.dart';
@@ -5,6 +7,8 @@ import './firstfloor/HomeFirstFloor.dart';
 import 'HomeThirdFloor.dart';
 import './fourthfloor/HomeFourthFloor.dart';
 import './fifthfloor/HomeFifthFloor.dart';
+import '../config/HttpMethod.dart';
+import './fourthfloor/CommendModel.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -21,14 +25,13 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   void initState() {
     // TODO: implement initState
     super.initState();
-    this._tabController = TabController(length: 10,vsync:this);
+ 
 
     print("_HomePageState ===initState");
   }
 
   @override
   void setState(fn) {
-    // TODO: implement setState
     super.setState(fn);
         print("_HomePageState ===setState");
   }
@@ -37,20 +40,35 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     print("_HomePageState ===build");
     return Scaffold(
       backgroundColor: Color.fromRGBO(237, 237, 237, 1),
-      body: CustomScrollView(
-        
-        slivers: <Widget>[
-          // 顶部导航栏
-          HomeTopAppBar(),
-          HomeFirstFloor(),
-          HomeThirdFloor(), 
-          HomeFourthFloor(tabController: _tabController,),
-        
-          HomeFifthFloor(tabController: _tabController),
+      body: FutureBuilder(
+        future: getHomeCommendData(),
+        builder: (BuildContext context, AsyncSnapshot snapshot){
+          sleep(Duration(seconds: 3));
+            if (snapshot.connectionState == ConnectionState.done) {
+              // 服务器数据转为模型
+              List<Titles> listData = CommandModel.fromJson(snapshot.data).titles;
+              this._tabController = TabController(length: listData.length,vsync:this);
 
-        ],
+              return CustomScrollView(
+                    slivers: <Widget>[
+                      // 顶部导航栏
+                      HomeTopAppBar(),
+                      HomeFirstFloor(),
+                      HomeThirdFloor(), 
+                      HomeFourthFloor(tabController: _tabController,listData: listData,),
+                      HomeFifthFloor(tabController: _tabController),
 
-      ),
+                    ],
+                  );
+            }
+            return Container(
+    
+              child: Center(
+                child:  Text("正在加载中..."),
+              ),
+            );
+        }
+      )
 
     );
   }
@@ -58,7 +76,20 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 }
 
 
+// CustomScrollView(
+        
+//         slivers: <Widget>[
+//           // 顶部导航栏
+//           HomeTopAppBar(),
+//           HomeFirstFloor(),
+//           HomeThirdFloor(), 
+//           HomeFourthFloor(tabController: _tabController,),
+        
+//           HomeFifthFloor(tabController: _tabController),
 
+//         ],
+
+//       ),
 /* 另一种写法
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
