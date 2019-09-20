@@ -17,7 +17,6 @@ class _HomeThirdFloorState extends State<HomeThirdFloor> {
   Widget build(BuildContext context) {
             // 记录屏幕方向
     orientation = MediaQuery.of(context).orientation;
-    print(">>>>>>>>>>>>>build<<<<<<<<<<<<<<<<<");
     setState(() {
       // 屏幕旋转时候重新赋值字体大小
       fontsize = ScreenUtil().setSp(16.0);
@@ -173,7 +172,6 @@ Widget middleWidget() {
 
 
 Widget topWidget() {
-  print("-------及阿里山的积分垃圾登陆---------🏠🏠🏠🏠🏠🏠");
  return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[

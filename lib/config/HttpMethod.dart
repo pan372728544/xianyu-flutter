@@ -12,6 +12,11 @@ Future getHomeCategoryStarData() async {
   return request(homeCategoryStarUrl);
 }
 
+Future getHomeCommendData() async {
+  return request(homeCommendUrl);
+}
+
+
 // 公共网络请求
 Future request(url) async {
 

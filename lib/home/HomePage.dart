@@ -21,12 +21,20 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   void initState() {
     // TODO: implement initState
     super.initState();
-    this._tabController = TabController(length: 3,vsync:this);
+    this._tabController = TabController(length: 10,vsync:this);
+
+    print("_HomePageState ===initState");
   }
 
   @override
+  void setState(fn) {
+    // TODO: implement setState
+    super.setState(fn);
+        print("_HomePageState ===setState");
+  }
+  @override
   Widget build(BuildContext context) {
-
+    print("_HomePageState ===build");
     return Scaffold(
       backgroundColor: Color.fromRGBO(237, 237, 237, 1),
       body: CustomScrollView(

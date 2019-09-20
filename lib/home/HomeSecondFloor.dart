@@ -22,7 +22,6 @@ class _HomeSecondFloorState extends State<HomeSecondFloor> {
 
         // 记录屏幕方向
     orientation = MediaQuery.of(context).orientation;
-    print(">>>>>>>>>>>>>build<<<<<<<<<<<<<<<<<");
     setState(() {
       // 屏幕旋转时候重新赋值字体大小
       fontsize = ScreenUtil().setSp(16.0);
