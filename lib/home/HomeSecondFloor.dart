@@ -5,15 +5,31 @@ import '../config/HttpMethod.dart';
 
 
 
-class HomeStar extends StatefulWidget {
-  HomeStar({Key key}) : super(key: key);
+class HomeSecondFloor extends StatefulWidget {
+  HomeSecondFloor({Key key}) : super(key: key);
 
-  _HomeStarState createState() => _HomeStarState();
+  _HomeSecondFloorState createState() => _HomeSecondFloorState();
 }
 
-class _HomeStarState extends State<HomeStar> {
+class _HomeSecondFloorState extends State<HomeSecondFloor> {
+    var fontsize;
+    var orientation;
+    var fontsizesub;
+    var fontsizestar;
+    var fontsizestarsub;
   @override
   Widget build(BuildContext context) {
+
+        // 记录屏幕方向
+    orientation = MediaQuery.of(context).orientation;
+    print(">>>>>>>>>>>>>build<<<<<<<<<<<<<<<<<");
+    setState(() {
+      // 屏幕旋转时候重新赋值字体大小
+      fontsize = ScreenUtil().setSp(16.0);
+      fontsizesub = ScreenUtil().setSp(12.0);
+      fontsizestar = ScreenUtil().setSp(18.0);
+      fontsizestarsub = ScreenUtil().setSp(14.0);
+    });
         // 白色背景容器
     return FutureBuilder(
 
@@ -33,19 +49,19 @@ class _HomeStarState extends State<HomeStar> {
          Map bottomData = starData['star'];
           return  Stack(
               children: <Widget>[
+
               // 顶部 ===========================
                 AspectRatio(
-                  aspectRatio: 375/160,
-                  child:   Container(
-                    padding: EdgeInsets.all(10),
+                  aspectRatio: 375/140,
+                  child: Container(
                     child: GridView.count(
                         crossAxisCount: 2,
+                        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                         physics: NeverScrollableScrollPhysics(),
-                        childAspectRatio: (ScreenUtil.screenWidthDp/2)/((ScreenUtil.screenWidthDp*160/375-20)/2),
+                        childAspectRatio: ((ScreenUtil.screenWidthDp-20)/2) / (ScreenUtil.screenWidthDp*(130)/375/2),
                       children: topList.map((item){
-                        return _gridViewItem(context,item);
+                        return _gridViewItem(context,item,fontsize,fontsizesub);
                       }).toList(),
-                      
                     ),
                     ),
                 ),
@@ -54,9 +70,9 @@ class _HomeStarState extends State<HomeStar> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child:  AspectRatio(
-                    aspectRatio: 375/30,
+                    aspectRatio: 375/40,
                     child: Container(
-                    child: _starViewItem(context,bottomData),
+                    child: _starViewItem(context,bottomData,fontsizestar,fontsizestarsub),
                   ),
                   ),
                 )
@@ -75,7 +91,7 @@ class _HomeStarState extends State<HomeStar> {
                   children: <Widget>[
                     Center(
                       child: Text(
-                        '还没有获取到数据',
+                        '正在获取到数据...',
                         style: TextStyle(
                           fontSize: 30.0,
                           color: Colors.orange
@@ -94,7 +110,7 @@ class _HomeStarState extends State<HomeStar> {
 
 
  // 单个分类视图
-  Widget _gridViewItem(BuildContext context, item) {
+  Widget _gridViewItem(BuildContext context, item,fontsize,fontsizesub) {
     return InkWell(
       onTap: () {
         /// 点击对应的item
@@ -108,7 +124,6 @@ class _HomeStarState extends State<HomeStar> {
         
         mainAxisAlignment:  MainAxisAlignment.spaceBetween,
         children: <Widget>[
-
           Container(
             padding: EdgeInsets.fromLTRB(5, 5, 0, 5),
             child:  Column(
@@ -121,7 +136,7 @@ class _HomeStarState extends State<HomeStar> {
                     Text(
                       item['title'],
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: fontsize,
                         fontWeight: FontWeight.bold,
                        ),
                       ),
@@ -136,7 +151,7 @@ class _HomeStarState extends State<HomeStar> {
                         child: Text(
                         item["key"],
                         style: TextStyle(
-                          fontSize: 10,
+                          fontSize: fontsizesub,
                           color: Colors.white,
                           fontWeight: FontWeight.bold
                         ),
@@ -147,17 +162,15 @@ class _HomeStarState extends State<HomeStar> {
               // 副标题
               Text(
                 item['subtitle'],
-                style: TextStyle(fontSize: 12.0, color: Colors.grey),
+                style: TextStyle(fontSize: fontsizesub, color: Colors.grey),
               )
             ],
           ),
           ),
           Container(
             // 右侧图片
-            padding: EdgeInsets.only(right: 10),
             child:  Image.network(
               item['imageUrl'],
-              width: ScreenUtil().setHeight(50),
               fit: BoxFit.cover,
             ),
           )
@@ -171,7 +184,7 @@ class _HomeStarState extends State<HomeStar> {
 
 
  // 底部视图
-  Widget _starViewItem(BuildContext context, item) {
+  Widget _starViewItem(BuildContext context, item,fontsizestar,fontsizestarsub) {
     return Container(
       padding: EdgeInsets.only(left: 10,right: 10),
       child: InkWell(
@@ -186,7 +199,7 @@ class _HomeStarState extends State<HomeStar> {
           Text(
             item['title'],
             style: TextStyle(
-              fontSize: 18,
+              fontSize: fontsizestar,
               fontWeight: FontWeight.bold,
               color: Colors.pink,
             ),
@@ -194,7 +207,7 @@ class _HomeStarState extends State<HomeStar> {
           // 标题
           Text(
             item['subtitle'],
-            style: TextStyle(fontSize: 14.0, color: Colors.black, fontWeight: FontWeight.bold,),
+            style: TextStyle(fontSize: fontsizestarsub, color: Colors.black, ),
           ),
           Image.network(item['imageUrl'])
               

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'HomeNavigationBar.dart';
-
-import 'HomeCategory.dart';
-import 'HomeSale.dart';
+import './appbar/HomeTopAppBar.dart';
+import './firstfloor/HomeFirstFloor.dart';
+import 'HomeThirdFloor.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -17,22 +16,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HomeAppBar(context).getHomeAppBar(),
       backgroundColor: Color.fromRGBO(237, 237, 237, 1),
-      body: ListView(
+      body: CustomScrollView(
         
-        children: <Widget>[
-          HomeCategory(),
-          HomeSale(),
+        slivers: <Widget>[
+          // 顶部导航栏
+          HomeTopAppBar(),
+          HomeFirstFloor(),
+          HomeThirdFloor(),
 
         ],
-      )
+
+      ),
 
     );
   }
-
-
-
-
 
 }

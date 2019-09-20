@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PostPage extends StatefulWidget {
@@ -8,23 +9,27 @@ class PostPage extends StatefulWidget {
 }
 
 class _PostPageState extends State<PostPage> {
+
+  ScrollController _controller = ScrollController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller.addListener((){
+      print("监听到滑动： ${_controller.offset}");
+      }
+    );
+
+
+  }
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
-      appBar: AppBar(
-        title: Text("发布"),
-      ),
-      body: Container(
-        color: Colors.red,
-        // width: ScreenUtil.screenWidthDp,
-        // height: ScreenUtil.getInstance().setHeight(100),
-        width: ScreenUtil.getInstance().setWidth(749),
-           height: ScreenUtil.getInstance().setWidth(750),
-          child: Text("data"),
-
-
-      ),
-
+    
+    return Scaffold(
+      body: Text("data")
     );
   }
 }
+
+

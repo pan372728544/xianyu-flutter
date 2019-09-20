@@ -1,51 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HomeSale extends StatefulWidget {
-  HomeSale({Key key}) : super(key: key);
+class HomeThirdFloor extends StatefulWidget {
+  HomeThirdFloor({Key key}) : super(key: key);
 
-  _HomeSaleState createState() => _HomeSaleState();
+  _HomeThirdFloorState createState() => _HomeThirdFloorState();
 }
 
-class _HomeSaleState extends State<HomeSale> {
+class _HomeThirdFloorState extends State<HomeThirdFloor> {
+    var fontsize;
+    var orientation;
+    var fontsizesub;
+    var fontsizestar;
+    var fontsizestarsub;
   @override
   Widget build(BuildContext context) {
-    return Stack(
-  
-       children: <Widget>[
-         // 白色背景
-         AspectRatio(
-           aspectRatio: 375/200,
-           child: Container(
-           margin: EdgeInsets.all(10),
-           padding: EdgeInsets.all(10),
-           decoration: BoxDecoration(
-             borderRadius: BorderRadius.circular(20),
-             color: Colors.white
-           ),
-           child: Container(
-             child: Stack(
-               children: <Widget>[
-                topWidget(),
-                middleWidget(),
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: MyButton("57类上门回收"),
-                ),
-                
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: bottomWidget()
-               )
-               ],
-             ),
+            // 记录屏幕方向
+    orientation = MediaQuery.of(context).orientation;
+    print(">>>>>>>>>>>>>build<<<<<<<<<<<<<<<<<");
+    setState(() {
+      // 屏幕旋转时候重新赋值字体大小
+      fontsize = ScreenUtil().setSp(16.0);
+      fontsizesub = ScreenUtil().setSp(12.0);
+      fontsizestar = ScreenUtil().setSp(18.0);
+      fontsizestarsub = ScreenUtil().setSp(14.0);
+    });
+    return SliverToBoxAdapter(
+              child: Stack(
+                    children: <Widget>[
+                      // 白色背景
+                      AspectRatio(
+                        aspectRatio: 375/200,
+                        child: Container(
+                        margin: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white
+                        ),
+                        child: Container(
+                          
+                          child: Stack(
+                            children: <Widget>[
+                              // 顶部
+                              topWidget(),
 
-           ),
-         ),
-         )
+                              // 中部
+                              middleWidget(),
 
+                              // 底部左侧
+                              Align(
+                                alignment: Alignment.bottomLeft,
+                                child: MyButton("57类上门回收"),
+                              ),
+                              // 底部右侧
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: bottomWidget()
+                            )
+                            ],
+                          ),
 
-       ],
+                        ),
+                      ),
+                      )
+                    ],
+                  )
     );
   }
 }
@@ -76,11 +96,10 @@ Widget middleWidget() {
     child: AspectRatio(
     aspectRatio: 375/130,
     child: GridView.count(
-    // maxCrossAxisExtent: 280,
+    padding: EdgeInsets.only(top: 0),
     crossAxisCount: 2,
     childAspectRatio: (ScreenUtil.screenWidthDp/2)/((ScreenUtil.screenWidthDp*130/375)/2),
     physics: NeverScrollableScrollPhysics(),
-    // padding: EdgeInsets.only(top: 30),
     children: list.map((item){
       return _gridViewItem(item);
     }).toList(),
@@ -113,7 +132,7 @@ Widget middleWidget() {
             child: Icon (
               Icons.cloud_circle,
               color: item.color,
-              size: 40,
+              size: ScreenUtil().setWidth(40),
             ),
           ),
           Container(
@@ -129,7 +148,7 @@ Widget middleWidget() {
                     Text(
                       item.title,
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: ScreenUtil().setSp(16.0),
                         fontWeight: FontWeight.bold,
                         color: item.color
                        ),
@@ -139,7 +158,7 @@ Widget middleWidget() {
               // 副标题
               Text(
                 item.subtitle,
-                style: TextStyle(fontSize: 12.0, color: Colors.grey),
+                style: TextStyle(fontSize: ScreenUtil().setSp(12.0), color: Colors.grey),
               )
             ],
           ),
@@ -154,14 +173,14 @@ Widget middleWidget() {
 
 
 Widget topWidget() {
- return  Row(
+  print("-------及阿里山的积分垃圾登陆---------🏠🏠🏠🏠🏠🏠");
+ return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          
           children: <Widget>[
             Text(
               "卖闲置能换钱",
               style: TextStyle(
-                fontSize: 18,
+                fontSize: ScreenUtil().setSp(18.0),
                 fontWeight: FontWeight.bold,
                 color: Colors.black
           
@@ -171,17 +190,23 @@ Widget topWidget() {
                 children: [
 
                   TextSpan(
-                    text: "最新发布"
+                    text: "最新发布",
+                     style: TextStyle(
+                      fontSize: ScreenUtil().setSp(13.0),
+                    )
                   ),
                   TextSpan(
                     text: "3378",
                     style: TextStyle(
-                      fontSize: 17,
+                      fontSize: ScreenUtil().setSp(17.0),
                       fontWeight: FontWeight.bold
                     )
                   ),
                   TextSpan(
-                    text: "件闲置"
+                    text: "件闲置",
+                     style: TextStyle(
+                      fontSize: ScreenUtil().setSp(13.0),
+                    )
                   ),
 
                 ]
@@ -200,8 +225,7 @@ class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 140,
-      // margin: EdgeInsets.only(top: 170),
+      width: ScreenUtil().setWidth(140),
       padding: EdgeInsets.fromLTRB(10, 3, 0, 3),
       decoration: BoxDecoration(
         color: Colors.red,
@@ -212,15 +236,16 @@ class MyButton extends StatelessWidget {
         
         child: Row(
           children: <Widget>[
+            SizedBox(width: ScreenUtil().setWidth(10),),
             Text(
               title,
-              style: TextStyle(fontSize: 15,color: Colors.white),
+              style: TextStyle(fontSize: ScreenUtil().setSp(15.0),color: Colors.white),
             ),
-            SizedBox(width: 10,),
+            SizedBox(width: ScreenUtil().setWidth(10),),
             Icon(
               Icons.arrow_forward_ios,
               color: Colors.white,
-              size: 13,
+              size: ScreenUtil().setWidth(13),
             )
           ],
         ),
@@ -262,11 +287,11 @@ Widget bottomItem(item) {
       aspectRatio: 7/9,
       child: Container(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
+        // crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Image.network(item.imageUrl),
-          Text(item.title,style: TextStyle(fontSize: 12),)
+          Text(item.title,style: TextStyle(fontSize: ScreenUtil().setSp(12.0)),)
 
         ],
 
