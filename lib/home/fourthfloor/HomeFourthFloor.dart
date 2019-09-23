@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../config/HttpMethod.dart';
 import 'CommendModel.dart';
+import 'package:provide/provide.dart';
+import 'CommendProvider.dart';
 
 class HomeFourthFloor extends StatefulWidget {
   final TabController tabController ;
@@ -10,49 +11,55 @@ class HomeFourthFloor extends StatefulWidget {
   _HomeFourthFloorState createState() => _HomeFourthFloorState();
 }
 
-class _HomeFourthFloorState extends State<HomeFourthFloor>  with SingleTickerProviderStateMixin{
+class _HomeFourthFloorState extends State<HomeFourthFloor> {
    
-
-
-  // TabController _tabController;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    print("////////////////////pppp   ${widget.tabController.length}");
-    // this._tabController = TabController(length: tabs.length,vsync:this);
-  }
-
   @override
   Widget build(BuildContext context) {
-   
    return SliverPersistentHeader(
      pinned: true,
      delegate: _SliverFourthBarDelegate(
        maxHeight: 40,
        minHeight: 40,
-        child: TabBar(
-                isScrollable: true,
-                controller: widget.tabController,
-                tabs: widget.listData.map((item){
-                  return Tab(
-                    child: Text(
-                      item.title,
-                      style: TextStyle(
-                        color: Colors.black
+        child: Provide<CommendProvider>(
+          builder: (context,child,commend) {
+           return Container(
+                      color: Colors.white.withOpacity(commend.value),
+                      child: TabBar(
+                        // 指示条
+                        indicatorWeight: 4.0,
+                        isScrollable: true,
+                        // 宽度
+                        indicatorSize: TabBarIndicatorSize.label,
+                        controller: widget.tabController,
+                        labelColor: Colors.blue,
+                        unselectedLabelColor: Colors.red,
+                        labelStyle: TextStyle(
+                          fontSize: 15.0
+                        ),
+                        unselectedLabelStyle: TextStyle(
+                           fontSize: 14.0
+                        ),
+                        tabs: widget.listData.map((item){
+                          return Tab(
+                            child: Text(
+                              item.title,
+                              style: TextStyle(
+                                color: Colors.black
+                              ),
+                            ),
+                          );
+                        }).toList(),
                       ),
-                    ),
-                  );
-                }).toList(),
-              )
+                    );
+          },
+
+        )
+
        ),
    );
   }
 
 }
-
 
 // 实现header代理
 class _SliverFourthBarDelegate extends SliverPersistentHeaderDelegate {

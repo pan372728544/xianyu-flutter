@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../config/HttpMethod.dart';
 
 class CommendProvider with ChangeNotifier {
 
-  int _value;
+  // 透明度
+  double _value;
 
-  int get value => _value;
+  double get value => _value;
 
   CommendProvider(this._value);
 
