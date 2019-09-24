@@ -10,3 +10,5 @@ const homeCategoryStarUrl = serviceUrl + '/xianyu/home/getCategroyStar';
 
 // 首页底部推荐请求地址
 const homeCommendUrl = serviceUrl + '/xianyu/home/getCommendList';
+const homeProductUrl = serviceUrl + '/xianyu/home/getProductList';
+

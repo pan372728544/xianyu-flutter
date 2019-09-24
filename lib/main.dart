@@ -3,11 +3,13 @@ import 'package:provide/provide.dart';
 import 'tabbar/Tabs.dart';
 import 'router/Routes.dart';
 import 'home/fourthfloor/CommendProvider.dart';
+import './home/fifthfloor/ProductProvide.dart';
 
 void main() {
 
   final provideers = Providers()
-      ..provide(Provider.function((context)=> CommendProvider(0)));
+      ..provide(Provider.function((context)=> CommendProvider(0)))
+      ..provide(Provider.function((context)=> ProductProvide()));
       runApp(
         ProviderNode(
           providers: provideers,

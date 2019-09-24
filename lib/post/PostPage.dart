@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PostPage extends StatefulWidget {
   PostPage({Key key}) : super(key: key);
@@ -14,7 +12,6 @@ class _PostPageState extends State<PostPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _controller.addListener((){
       print("监听到滑动： ${_controller.offset}");

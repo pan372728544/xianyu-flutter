@@ -16,15 +16,24 @@ Future getHomeCommendData() async {
   return request(homeCommendUrl);
 }
 
+Future getHomeCommendProductData( data) async {
+  return request(homeProductUrl,data: data);
+}
+
 
 // 公共网络请求
-Future request(url) async {
+Future request(url,{data}) async {
 
   try{
-    print('============开始发送网络请求============');
+    print('============开始发送网络请求=========$url===');
     Response response;
     Dio dio = new Dio();
-    response = await dio.get(url);
+   
+    if (data != null) {
+      response = await dio.get(url,queryParameters: data);
+    } else {
+       response = await dio.get(url);
+    }
 
     if (response.statusCode == 200){
       print("网络请求成功");

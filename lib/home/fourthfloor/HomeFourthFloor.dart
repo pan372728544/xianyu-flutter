@@ -34,7 +34,8 @@ class _HomeFourthFloorState extends State<HomeFourthFloor> {
                         labelColor: Colors.blue,
                         unselectedLabelColor: Colors.red,
                         labelStyle: TextStyle(
-                          fontSize: 15.0
+                          fontSize: 15.0,
+                          color: Colors.blue
                         ),
                         unselectedLabelStyle: TextStyle(
                            fontSize: 14.0

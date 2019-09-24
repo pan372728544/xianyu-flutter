@@ -13,6 +13,14 @@ class _HomeThirdFloorState extends State<HomeThirdFloor> {
     var fontsizesub;
     var fontsizestar;
     var fontsizestarsub;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  
+  }
+
   @override
   Widget build(BuildContext context) {
             // 记录屏幕方向

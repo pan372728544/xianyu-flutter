@@ -4,8 +4,8 @@ import 'HomeFifthContent.dart';
 
 class HomeFifthFloor extends StatefulWidget {
   final TabController tabController ;
-  final ScrollController scrollController;
-  HomeFifthFloor({Key key,@required this.tabController,@required this.scrollController}) : super(key: key);
+
+  HomeFifthFloor({Key key,@required this.tabController}) : super(key: key);
 
   _HomeFifthFloorState createState() => _HomeFifthFloorState();
 }
@@ -15,9 +15,8 @@ class _HomeFifthFloorState extends State<HomeFifthFloor> {
   List<HomeFifthContent> content = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
- 
+    // 设置推荐内容视图数组
     for (var i = 0; i < widget.tabController.length; i++) {
       content.add(HomeFifthContent(index: i,));
     }
@@ -26,19 +25,14 @@ class _HomeFifthFloorState extends State<HomeFifthFloor> {
   @override
   Widget build(BuildContext context) {
 
-    return SliverFillViewport(
-      // viewportFraction: 1.0,
-      delegate: SliverChildListDelegate([
-        Container(
-          child: TabBarView(
+    return  Container(
+      child: TabBarView(
               controller: widget.tabController,
               children: content.map((item){
                 return item;
               }).toList(),
-            ),
-        ),
-      ]),
       
+           ),
     );
   }
 }
