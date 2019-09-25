@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import '../../config/HttpMethod.dart';
 import 'ProductItem.dart';
@@ -27,11 +29,13 @@ class ProductProvide with ChangeNotifier {
    int get totalPage =>  _totalPage;
 
   // 获取商品数据  请求页数 请求类型
-  Future getProducts(int page,int type) async {
+    Future getProducts({int page,int type}) async {
 
     await getHomeCommendProductData({"page": page,"type": type}).then ((value){
 
+      // sleep(Duration(seconds:3));
 
+      print("$page   $type");
      var productItem = ProductItem.fromJson(value);
 
      _totalPage = int.parse(productItem.totalPage);
@@ -43,7 +47,7 @@ class ProductProvide with ChangeNotifier {
     }
 
     //  _products.addAll(productItem.product);
-    _products.insertAll(0, productItem.product);
+    _products.insertAll(_products.length-1, productItem.product);
         print("========================================================getHomeCommendProductData============${_products.length}");
       notifyListeners();
 

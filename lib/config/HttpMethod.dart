@@ -17,7 +17,7 @@ Future getHomeCommendData() async {
 }
 
 Future getHomeCommendProductData( data) async {
-  return request(homeProductUrl,data: data);
+  return await request(homeProductUrl,data: data);
 }
 
 
@@ -25,7 +25,7 @@ Future getHomeCommendProductData( data) async {
 Future request(url,{data}) async {
 
   try{
-    print('============开始发送网络请求=========$url===');
+    // print('============开始发送网络请求=========$url===');
     Response response;
     Dio dio = new Dio();
    
@@ -36,7 +36,7 @@ Future request(url,{data}) async {
     }
 
     if (response.statusCode == 200){
-      print("网络请求成功");
+      // print("网络请求成功");
       return response.data;
     } else {
       throw Exception('后端接口出现异常，请检测代码和服务器情况.........');

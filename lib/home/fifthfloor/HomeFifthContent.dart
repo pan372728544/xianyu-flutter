@@ -13,6 +13,7 @@ class HomeFifthContent extends StatefulWidget {
 }
 
 class _HomeFifthContentState extends State<HomeFifthContent> {
+  int page = 1;
 
   @override
   void initState() {
@@ -21,53 +22,88 @@ class _HomeFifthContentState extends State<HomeFifthContent> {
   }
   @override
   Widget build(BuildContext context) {
-    Provide.value<ProductProvide>(context).getProducts(1, 1);
-    print("========================================================ProductProvide============");
+    if (page == 1) {
+       Provide.value<ProductProvide>(context).getProducts(page: page,type: widget.index);
+    }
     return  Provide<ProductProvide>(
       builder: (context,child,product){
-        return Container(
-          child: StaggeredGridView.countBuilder(
-          padding: EdgeInsets.all(10),
-          crossAxisCount: 2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          itemCount: product.products.length,
-          itemBuilder: (BuildContext context, int index){
-            Product endProduct = product.products[index];
-            if (endProduct.key == "end") {
-              // return Container(
-              //   height: 40,
-              //   color: Colors.red,
-              //   child: Text("加载数据。。。。",style: TextStyle(backgroundColor: Colors.red,fontSize: 10)),
-              // );
-              return CircularProgressIndicator(strokeWidth: 2.0);
-            } else {
-            print("dangqian     $index");
-            return _productWidget(product.products[index],index);
-            }
+        
+        if (product.totalPage == 0) {
+          return Container(
 
-          },
-          staggeredTileBuilder: (int index){
-              Product endProduct = product.products[index];
-            if (endProduct.key == "end") {
-            
-            return StaggeredTile.extent(2, 40);
-            } else {
-           
-           return StaggeredTile.count(1, index.isEven ? 1.3 : 1.6);
-            }
+          );
+        } else {
+        return  Container(
+                  child: StaggeredGridView.countBuilder(
+                  padding: EdgeInsets.all(10),
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  itemCount: product.products.length,
+                  itemBuilder: (BuildContext context, int index){
+                    Product endProduct = product.products[index];
+                    if (endProduct.key == "end") {
+                      page++;
+                       _retrieveData(context,widget.index,page);
+                      // 结束标志
+                      if (page > product.totalPage) {
+                              return Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(color: Colors.blue,width: 1)
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: SizedBox(
+                                        height: 24.0,
+                                        child: Text("没有更多了"),
+                                    ),
+                                  );
+                        } else {
+                           return Container( // 加载视图
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(color: Colors.blue,width: 1)
+                              ),
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                  width: 24.0,
+                                  height: 24.0,
+                                  child: CircularProgressIndicator(strokeWidth: 2.0)
+                              ),
+                            );
+                        }
+                    } else {
+                      // 不是结束标志
+                       return _productWidget(product.products[index],index);
+                    }
+                  
 
-          },
-        ),
+                  },
+                  staggeredTileBuilder: (int index){
+                      Product endProduct = product.products[index];
+                    if (endProduct.key == "end") {
+                       return StaggeredTile.extent(2, 40);
+                    } else {
+                      return StaggeredTile.count(1, index.isEven ? 1.3 : 1.6);
+                    }
 
-        );
+                  },
+                ),
 
+                );
+        }
       },
 
 
     );
   }
 }
+
+void _retrieveData(context,type,page) {
+    Future.delayed(Duration(seconds: 1)).then((e) {
+       Provide.value<ProductProvide>(context).getProducts(page:page, type: type); 
+    });
+  }
 
 // 商品单个数据
 Widget _productWidget(Product product,int index){
